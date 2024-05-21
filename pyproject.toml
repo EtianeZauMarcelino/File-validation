@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "file validation"
+version = "0.1.0"
+description = ""
+authors = ["Etiane Marcelino <etianezaumarcelino@hotmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+pandas = "^2.2.2"
+openpyxl = "^3.1.2"
+pandera = {extras = ["io"], version = "^0.19.3"}
+loguru = "^0.7.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
