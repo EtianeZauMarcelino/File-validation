@@ -1,6 +1,9 @@
 from loguru import logger
 from sys import stderr
 from functools import wraps
+from datetime import datetime
+
+date = datetime.today().date()
 
 # Removendo os handlers existentes para evitar duplicação
 logger.remove()
@@ -14,7 +17,7 @@ logger.add(
 
 # Configuração do logger para arquivo de log
 logger.add(
-                r"logs/execution_log.log",
+                fr"logs/execution_log_{date}.log",
                 format="{time} {level} | {line: <3} | {message} {file}",
                 level="INFO"
             )
