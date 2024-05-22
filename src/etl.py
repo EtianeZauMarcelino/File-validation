@@ -25,9 +25,13 @@ class DataSources():
         raise NotImplementedError("Método save_data deve ser implementado nas classes filhas.")
     
     def execute_etl(self):
-        extracted_data = self.get_data()
-        transformed_data = self.transform_data(extracted_data)
-        self.return_data(transformed_data)
+        try:
+            extracted_data = self.get_data()
+            transformed_data = self.transform_data(extracted_data)
+            self.return_data(transformed_data)
+
+        except ValueError as ve:
+            return ve
    
 class EtlFromExcel(DataSources):
     #@pa.check_output(schema, lazy=True)
@@ -49,9 +53,20 @@ class EtlFromExcel(DataSources):
     @log_decorator
     @pa.check_output(schema, lazy=True)
     def save_data(self):
+            
         df_row = self.get_data()
         df_cleaned = self.transform_data(df_row)
+
+        # try:
+        #     schema.validate(df_cleaned, lazy=True)
+        # except pa.errors.SchemaErrors as exc:
+        #     print("Schema errors and failure cases:")
+        #     print(exc.failure_cases)
+        #     print("\nDataFrame object that failed validation:")
+        #     print(exc.data)
+
         return df_cleaned
+
     
     @log_decorator
     def save_schema(self):
